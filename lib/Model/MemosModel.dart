@@ -4,8 +4,8 @@ import 'package:memove_practice/Model/TextModel.dart';
 
 class MemosModel extends ChangeNotifier {
   static List<MemoModel> memos = [
-    MemoModel(TextModel('메모1')),
-    MemoModel(TextModel('메모2'))
+    MemoModel(title:TextModel()),
+    MemoModel(title:TextModel(content: '메모 2'))
   ];
 
   static void addMemo(MemoModel memo) {
@@ -14,7 +14,7 @@ class MemosModel extends ChangeNotifier {
   static int cntMemo() {
     return memos.length;
   }
-  static MemoModel getMemo(int index)
+  static MemoModel getMemoModel(int index)
   {
     return memos[index];
   }

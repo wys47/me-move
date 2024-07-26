@@ -2,7 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:memove_practice/Model/TextModel.dart';
 
 class MemoModel extends ChangeNotifier {
-  TextModel text;
+  TextModel title;
+  bool isChecked;
 
-  MemoModel(this.text);
+  MemoModel({
+    required this.title,
+    this.isChecked = false,
+  });
 }

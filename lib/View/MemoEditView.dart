@@ -28,7 +28,8 @@ class MemoEditView extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                MemosModel.addMemo(MemoModel(TextModel(_controller.text)));
+                MemosModel.addMemo(MemoModel(title: (TextModel(content:_controller.text)))
+                  );
                 Navigator.of(context).pop();
               },
               child: Text('완료'),
