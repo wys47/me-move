@@ -72,7 +72,7 @@ class HomePageViewState extends State<HomePageView> {
                           color: Colors.grey,
                         ),
                         alignment: Alignment.center,
-                        child: Text(MemosModel.getMemo(i).text.str),
+                        child: Text(MemosModel.getMemoModel(i).title.content),
                       );
                     },
                   ),
