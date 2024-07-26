@@ -27,6 +27,30 @@ class HomePageViewState extends State<HomePageView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
+        leading: ElevatedButton(
+          onPressed: () {
+            //버튼 눌릴 때
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.orange,
+            shape: CircleBorder(),
+            fixedSize: Size.fromRadius(25),
+          ),
+          child: Text('목록'),
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              //버튼 눌릴 때
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange,
+              shape: CircleBorder(),
+              fixedSize: Size.fromRadius(25),
+            ),
+            child: Text('기타'),
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
