@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:memove_practice/Model/MemosModel.dart';
 import 'package:memove_practice/Model/MemoModel.dart';
 import 'package:memove_practice/Model/TextModel.dart';
-import 'package:memove_practice/View/HomePageView.dart';
-//테스트
+
+
 class MemoEditView extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
 

@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/material.dart';
 import 'package:memove_practice/Model/TextModel.dart';
 
 class MemoModel extends ChangeNotifier {
