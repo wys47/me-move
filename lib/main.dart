@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memove_practice/View/HomePageView.dart';
+
+import 'modules/home/home_page.dart';
 
 void main() {
   runApp(MyApp());

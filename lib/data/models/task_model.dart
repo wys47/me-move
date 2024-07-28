@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:memove_practice/Model/TextModel.dart';
+import 'package:memove_practice/data/models/text_model.dart';
 
 class MemoModel extends ChangeNotifier {
   TextModel title;

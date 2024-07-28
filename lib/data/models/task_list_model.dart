@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memove_practice/Model/MemoModel.dart';
-import 'package:memove_practice/Model/TextModel.dart';
+import 'package:memove_practice/data/models/text_model.dart';
+import 'package:memove_practice/data/models/task_model.dart';
 
 class MemosModel extends ChangeNotifier {
   static List<MemoModel> memos = [
