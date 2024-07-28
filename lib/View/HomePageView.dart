@@ -2,20 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:memove_practice/View/MemoEditView.dart';
 import 'package:memove_practice/Model/MemosModel.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePageView(),
-    );
-  }
-}
-
 class HomePageView extends StatefulWidget {
   @override
   HomePageViewState createState() => HomePageViewState();
