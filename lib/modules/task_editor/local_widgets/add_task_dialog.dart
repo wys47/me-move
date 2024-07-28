@@ -3,7 +3,7 @@ import 'package:memove_practice/data/models/task_list_model.dart';
 import 'package:memove_practice/data/models/task_model.dart';
 import 'package:memove_practice/data/models/text_model.dart';
 
-class MemoEditView extends StatelessWidget {
+class AddTaskDialog extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -27,7 +27,7 @@ class MemoEditView extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                MemosModel.addMemo(MemoModel(title: (TextModel(content:_controller.text)))
+                TaskListModel.addMemo(TaskModel(title: (TextModel(content:_controller.text)))
                   );
                 Navigator.of(context).pop();
               },

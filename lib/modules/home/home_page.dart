@@ -3,12 +3,12 @@ import 'package:memove_practice/data/models/task_list_model.dart';
 import 'package:memove_practice/modules/task_editor/local_widgets/add_task_dialog.dart';
 
 
-class HomePageView extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  HomePageViewState createState() => HomePageViewState();
+  HomePageState createState() => HomePageState();
 }
 
-class HomePageViewState extends State<HomePageView> {
+class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +49,7 @@ class HomePageViewState extends State<HomePageView> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: MemosModel.cntMemo(),
+                    itemCount: TaskListModel.cntMemo(),
                     itemBuilder: (context, i) {
                       return Container(
                         height: 80,
@@ -59,7 +59,7 @@ class HomePageViewState extends State<HomePageView> {
                           color: Colors.grey,
                         ),
                         alignment: Alignment.center,
-                        child: Text(MemosModel.getMemoModel(i).title.content),
+                        child: Text(TaskListModel.getMemoModel(i).title.content),
                       );
                     },
                   ),
@@ -73,7 +73,7 @@ class HomePageViewState extends State<HomePageView> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return MemoEditView();
+                      return AddTaskDialog();
                     },
                   ).then((value) {
                     setState(() {});
