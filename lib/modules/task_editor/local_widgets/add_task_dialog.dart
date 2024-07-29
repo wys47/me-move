@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:memove_practice/Model/MemosModel.dart';
-import 'package:memove_practice/Model/MemoModel.dart';
-import 'package:memove_practice/Model/TextModel.dart';
-import 'package:memove_practice/View/HomePageView.dart';
-//테스트
-class MemoEditView extends StatelessWidget {
+import 'package:memove_practice/data/models/task_list_model.dart';
+import 'package:memove_practice/data/models/task_model.dart';
+import 'package:memove_practice/data/models/text_model.dart';
+
+class AddTaskDialog extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -28,7 +27,7 @@ class MemoEditView extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                MemosModel.addMemo(MemoModel(title: (TextModel(content:_controller.text)))
+                TaskListModel.addMemo(TaskModel(title: (TextModel(content:_controller.text)))
                   );
                 Navigator.of(context).pop();
               },
