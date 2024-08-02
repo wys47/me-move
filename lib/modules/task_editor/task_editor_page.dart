@@ -32,10 +32,29 @@ class _TaskEditPageState extends State<TaskEditPage> {
     super.dispose();
   }
 
+  void saveTask() {
+    final taskData = Provider.of<TaskData>(context, listen: false);
+    taskData.changeTask(
+      index: widget.taskIndex,
+      newTask: TaskModel(
+        title: _titleController.text,
+        detail: _detailController.text,
+        isChecked: taskData.getTask(index: widget.taskIndex).isChecked,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            saveTask(); // 뒤로가기 버튼을 눌렀을 때 저장
+            Navigator.pop(context);
+          },
+        ),
         title: Text('Edit Task'),
         actions: <Widget>[
           PopupMenuButton<int>(
@@ -50,7 +69,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                 child: Text('Cancel'),
               ),
             ],
-            icon: Icon(Icons.more_vert),  // 더보기 아이콘
+            icon: Icon(Icons.more_vert), // 더보기 아이콘
           ),
         ],
       ),
@@ -85,15 +104,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
   void onSelected(BuildContext context, int item) {
     switch (item) {
       case 0: // 'Save' 선택시
-        final taskData = Provider.of<TaskData>(context, listen: false);
-        taskData.changeTask(
-          index: widget.taskIndex,
-          newTask: TaskModel(
-            title: _titleController.text,
-            detail: _detailController.text,
-            isChecked: taskData.getTask(index: widget.taskIndex).isChecked,
-          ),
-        );
+        saveTask();
         Navigator.pop(context);
         break;
       case 1: // 'Cancel' 선택시
