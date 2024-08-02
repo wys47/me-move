@@ -6,7 +6,7 @@ import 'package:memove_practice/data/task_data.dart';
 class TaskEditPage extends StatefulWidget {
   final int taskIndex;
 
-  TaskEditPage({required this.taskIndex});
+  TaskEditPage({super.key, required this.taskIndex});
 
   @override
   _TaskEditPageState createState() => _TaskEditPageState();

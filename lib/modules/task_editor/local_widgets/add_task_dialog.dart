@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/models/task_model.dart';
-import 'package:memove_practice/data/models/text_model.dart';
 import 'package:memove_practice/data/task_data.dart';
 import 'package:provider/provider.dart';
 
 class AddTaskDialog extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
+
+  AddTaskDialog({super.key});
   @override
   Widget build(BuildContext context) {
     final taskData = Provider.of<TaskData>(context);
