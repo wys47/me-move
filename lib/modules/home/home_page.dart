@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memove_practice/data/task_data.dart';
 import 'package:memove_practice/modules/task_editor/local_widgets/add_task_dialog.dart';
 import 'package:memove_practice/modules/task_editor/task_editor_page.dart';
+import 'package:memove_practice/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,29 +17,17 @@ class HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
-        leading: ElevatedButton(
+        leading: IconButton(
           onPressed: () {
-            //버튼 눌릴 때
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange,
-            shape: CircleBorder(),
-            fixedSize: Size.fromRadius(25),
-          ),
-          child: Text('목록'),
+          icon: Icon(Icons.dehaze),
         ),
         actions: [
-          ElevatedButton(
+          IconButton(
             onPressed: () {
-              //버튼 눌릴 때
+              // '기타' 버튼 눌릴 때 동작
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange,
-              shape: CircleBorder(),
-              fixedSize: Size.fromRadius(25),
-            ),
-            child: Text('기타'),
+            icon: Icon(Icons.more_vert),
           ),
         ],
       ),
@@ -76,7 +65,7 @@ class HomePageState extends State<HomePage> {
                           margin: EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey,
+                            color: getLighterColor(mainColor, 0.85),
                           ),
                           alignment: Alignment.center,
                           child: Text(taskData.getTask(index: index).title),
@@ -89,7 +78,8 @@ class HomePageState extends State<HomePage> {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: ElevatedButton(
+              child: FloatingActionButton(
+                shape: CircleBorder(),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -100,12 +90,7 @@ class HomePageState extends State<HomePage> {
                     setState(() {});
                   });
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  shape: CircleBorder(),
-                  fixedSize: Size.fromRadius(25),
-                ),
-                child: Text('+'),
+                child: Icon(Icons.add),
               ),
             ),
           ],

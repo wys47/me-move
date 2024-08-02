@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/task_data.dart';
+import 'package:memove_practice/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'modules/home/home_page.dart';
@@ -14,7 +15,9 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => TaskData(),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
+        title: 'me-move',
+        theme: AppTheme.getTheme(),
+        debugShowCheckedModeBanner: false, // 배포시 주의
         home: HomePage(),
       ),
     );

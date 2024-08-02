@@ -15,18 +15,18 @@ class AddTaskDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        height: 200,
+        height: 250,
         width: 200,
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.fromLTRB(20,40,20,10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('메모 수정'),
-            SizedBox(height: 20),
+            Text('메모 추가'),
+            SizedBox(height: 10),
             TextField(
               controller: _controller,
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
                 taskData.addTask(task: TaskModel(title: _controller.text));
