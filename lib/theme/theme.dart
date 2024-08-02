@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const mainColor = Colors.blueGrey;
-final secondaryColorDark = Color(0xFF27242C);
+
+Color getLighterColor(Color color, double lightness) {
+  final lighterHslColor = HSLColor.fromColor(color).withLightness(lightness);
+  return lighterHslColor.toColor();
+}
 
 class AppTheme {
   static ThemeData getTheme() {
     return ThemeData(
-      primarySwatch: mainColor,
       colorScheme: ColorScheme.fromSwatch().copyWith(
         secondary: Colors.blueAccent, // formerly known as accentColor
       ),

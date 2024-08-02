@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:memove_practice/data/task_data.dart';
 import 'package:memove_practice/modules/task_editor/local_widgets/add_task_dialog.dart';
 import 'package:memove_practice/modules/task_editor/task_editor_page.dart';
+import 'package:memove_practice/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -64,7 +65,7 @@ class HomePageState extends State<HomePage> {
                           margin: EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.blueGrey[100],
+                            color: getLighterColor(mainColor, 0.85),
                           ),
                           alignment: Alignment.center,
                           child: Text(taskData.getTask(index: index).title),
