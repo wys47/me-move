@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/models/task_model.dart';
+import 'package:memove_practice/data/models/text_model.dart';
 import 'package:provider/provider.dart';
 import 'package:memove_practice/data/task_data.dart';
 
@@ -21,7 +22,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
     super.initState();
     final taskData = Provider.of<TaskData>(context, listen: false);
     TaskModel task = taskData.getTask(index: widget.taskIndex);
-    _titleController = TextEditingController(text: task.title);
+    _titleController = TextEditingController(text: task.title.content);
     _detailController = TextEditingController(text: task.detail);
   }
 
@@ -37,7 +38,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
     taskData.changeTask(
       index: widget.taskIndex,
       newTask: TaskModel(
-        title: _titleController.text,
+        title: TextModel(content: _titleController.text),
         detail: _detailController.text,
         isChecked: taskData.getTask(index: widget.taskIndex).isChecked,
       ),

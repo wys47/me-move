@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:memove_practice/data/models/text_model.dart';
 
 class TaskModel extends ChangeNotifier {
-  String title;
+  TextModel title;
   String detail;
   bool isChecked;
 

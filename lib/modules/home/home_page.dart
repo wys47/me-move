@@ -72,7 +72,7 @@ class HomePageState extends State<HomePage> {
                                 color: getLighterColor(mainColor, 0.85),
                               ),
                               alignment: Alignment.center,
-                              child: Text(taskData.getTask(index: index).title),
+                              child: Text(taskData.getTask(index: index).title.content),
                             ),
                             Align(
                               alignment: Alignment.centerLeft,

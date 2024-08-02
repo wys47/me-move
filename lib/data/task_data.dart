@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/models/task_model.dart';
+import 'package:memove_practice/data/models/text_model.dart';
 
 class TaskData extends ChangeNotifier {
   List<TaskModel> taskList = [
-    TaskModel(title: 'Test 1'),
-    TaskModel(title: 'Test 2')
+    TaskModel(title: TextModel(content: 'Test 1')),
+    TaskModel(title: TextModel(content: 'Test 2'))
   ];
 
   int get taskCount => taskList.length;

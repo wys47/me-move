@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/models/task_model.dart';
+import 'package:memove_practice/data/models/text_model.dart';
 import 'package:memove_practice/data/task_data.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ class AddTaskDialog extends StatelessWidget {
             SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
-                taskData.addTask(task: TaskModel(title: _controller.text));
+                taskData.addTask(task: TaskModel(title: TextModel(content: _controller.text)));
                 Navigator.of(context).pop();
               },
               child: Text('완료'),
