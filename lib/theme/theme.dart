@@ -14,6 +14,7 @@ class AppTheme {
       colorScheme: ColorScheme.fromSwatch().copyWith(
         secondary: Colors.blueAccent, // formerly known as accentColor
       ),
+      scaffoldBackgroundColor: Colors.white,
       appBarTheme: AppBarTheme(
         backgroundColor: mainColor,
         titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
