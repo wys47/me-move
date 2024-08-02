@@ -62,15 +62,32 @@ class HomePageState extends State<HomePage> {
                           );
                         },
 
-                        child: Container(
-                          height: 80,
-                          margin: EdgeInsets.only(bottom: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: getLighterColor(mainColor, 0.85),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(taskData.getTask(index: index).title),
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 80,
+                              margin: EdgeInsets.only(bottom: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: getLighterColor(mainColor, 0.85),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(taskData.getTask(index: index).title),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                height: 80,
+                                width: 80,
+                                child: IconButton(
+                                  onPressed: () {
+                                    taskData.changeCheckState(index: index);
+                                  },
+                                  icon: Icon(Icons.check)
+                                ),
+                              )
+                            )
+                          ],
                         ),
                       );
                     },

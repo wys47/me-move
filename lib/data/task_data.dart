@@ -31,5 +31,4 @@ class TaskData extends ChangeNotifier {
         : taskList.elementAt(index).isChecked = true;
     notifyListeners(); //<- 나중에 필요 없을시 제거
   }
-
 }
