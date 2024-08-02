@@ -10,7 +10,7 @@ class TextModel extends ChangeNotifier {
   // 7.26 한결 - 빈 모델 쓸 수도 있을 것 같아서 일단 임시로 초기값 다 넣어둠
   TextModel({
     this.content = '\'content\' does not exist in TextModel',
-    this.size = 10.0,
+    this.size = 20.0,
     this.isChangeColor = false,
     this.isStrikethrough = false,
     this.isBold = false,

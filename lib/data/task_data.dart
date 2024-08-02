@@ -32,4 +32,9 @@ class TaskData extends ChangeNotifier {
         : taskList.elementAt(index).isChecked = true;
     notifyListeners(); //<- 나중에 필요 없을시 제거
   }
+
+  void changeIsStrikeThrough({required int index}){
+    taskList[index].title.isStrikethrough = !taskList[index].title.isStrikethrough;
+    notifyListeners(); //<- 나중에 필요 없을시 제거
+  }
 }

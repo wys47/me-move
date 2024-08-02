@@ -72,7 +72,13 @@ class HomePageState extends State<HomePage> {
                                 color: getLighterColor(mainColor, 0.85),
                               ),
                               alignment: Alignment.center,
-                              child: Text(taskData.getTask(index: index).title.content),
+                              child: Text(
+                                taskData.getTask(index: index).title.content,
+                                style: TextStyle(
+                                  fontSize: taskData.taskList[index].title.size,
+                                  decoration: taskData.taskList[index].title.isStrikethrough ? TextDecoration.lineThrough : null,
+                                ),
+                              ),
                             ),
                             Align(
                               alignment: Alignment.centerLeft,
@@ -82,8 +88,9 @@ class HomePageState extends State<HomePage> {
                                 child: IconButton(
                                   onPressed: () {
                                     taskData.changeCheckState(index: index);
+                                    taskData.changeIsStrikeThrough(index: index);
                                   },
-                                  icon: Icon(Icons.check)
+                                  icon: Icon(taskData.taskList[index].isChecked ? Icons.check : Icons.square_outlined)
                                 ),
                               )
                             )
