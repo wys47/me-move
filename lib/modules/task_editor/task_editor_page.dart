@@ -86,7 +86,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                 labelText: 'Title',
                 border: OutlineInputBorder(),
               ),
-            ),
+            ), // 타이틀
             SizedBox(height: 20),
             TextField(
               controller: _detailController,
@@ -96,14 +96,14 @@ class _TaskEditPageState extends State<TaskEditPage> {
               ),
               maxLines: null,
               keyboardType: TextInputType.multiline,
-            ),
+            ), // 디테일
             ElevatedButton(
               onPressed: () {
                 // 강조 효과를 수정할 수 있는 화면으로 이동하는 로직 추가
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) => HighlightSettingsPage(),
+                    pageBuilder: (context, animation, secondaryAnimation) => HighlightSettingsPage(taskIndex: widget.taskIndex),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
                       return FadeTransition(
                         opacity: animation,
