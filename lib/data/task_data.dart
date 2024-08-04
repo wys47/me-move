@@ -36,10 +36,15 @@ class TaskData extends ChangeNotifier {
 
   void changeIsChangeColor({required int index}){
     taskList[index].title.isChangeColor = !taskList[index].title.isChangeColor;
-    print('is change color:');
-    print(taskList.elementAt(index).title.isChangeColor);
     notifyListeners(); //<- 나중에 필요 없을시 제거
   }
 
-  void saveTask({required int index})
+  void changeTitle({required int index, required String newTitle}){
+    taskList[index].title.content = newTitle;
+    notifyListeners();
+  }
+  void changeDetail({required int index, required String newDetail}){
+    taskList[index].detail = newDetail;
+    notifyListeners();
+  }
 }

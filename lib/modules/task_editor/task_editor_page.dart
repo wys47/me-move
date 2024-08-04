@@ -36,14 +36,8 @@ class _TaskEditPageState extends State<TaskEditPage> {
 
   void saveTask() {
     final taskData = Provider.of<TaskData>(context, listen: false);
-    taskData.changeTask(
-      index: widget.taskIndex,
-      newTask: TaskModel(
-        title: TextModel(content: _titleController.text),
-        detail: _detailController.text,
-        isChecked: taskData.getTask(index: widget.taskIndex).isChecked,
-      ),
-    );
+    taskData.changeTitle(index: widget.taskIndex, newTitle: _titleController.text);
+    taskData.changeDetail(index: widget.taskIndex, newDetail: _detailController.text);
   }
 
   @override
