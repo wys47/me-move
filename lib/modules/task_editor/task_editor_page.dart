@@ -40,6 +40,11 @@ class _TaskEditPageState extends State<TaskEditPage> {
     taskData.changeDetail(index: widget.taskIndex, newDetail: _detailController.text);
   }
 
+  void removeTask() {
+    final taskData = Provider.of<TaskData>(context, listen: false);
+    taskData.removeTask(index: widget.taskIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +68,10 @@ class _TaskEditPageState extends State<TaskEditPage> {
               PopupMenuItem<int>(
                 value: 1,
                 child: Text('Cancel'),
+              ),
+              PopupMenuItem<int>(
+                value: 2,
+                child: Text('Remove'),  // 추가: 작업 제거 메뉴 아이템
               ),
             ],
             icon: Icon(Icons.more_vert), // 더보기 아이콘
@@ -129,6 +138,10 @@ class _TaskEditPageState extends State<TaskEditPage> {
         break;
       case 1: // 'Cancel' 선택시
         Navigator.pop(context);
+        break;
+      case 2: // 'Remove' 선택시
+        removeTask();
+        Navigator.pop(context);  // 작업을 제거한 후 화면을 닫습니다.
         break;
     }
   }
