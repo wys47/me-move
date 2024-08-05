@@ -126,6 +126,51 @@ class HomePageState extends State<HomePage> {
                       }
                     },
                   ),
+                  Container(
+                      height: 60,
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: getLighterColor(mainColor, 0.85),
+                      ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              width: 70,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '완료',
+                                  style: TextStyle(
+                                      fontSize: 20
+                                  ),
+                                ),
+                              )
+                          ),
+                          Container(
+                            width: 70,
+                            child: Row(
+                              children: [
+                                Text(
+                                  taskData.cntCheckedTask().toString(),
+                                  style: TextStyle(
+                                      fontSize: 20
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    taskData.changedTaskOpen();
+                                  },
+                                  icon: Icon(taskData.checkedTaskOpen ? Icons.arrow_drop_down : Icons.arrow_left),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                  ),
                 ],
               ),
             ),
