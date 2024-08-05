@@ -21,10 +21,6 @@ class TaskData extends ChangeNotifier {
     taskList.removeAt(index);
     notifyListeners(); //<- 나중에 필요 없을시 제거
   }
-  void changeTask({required int index, required TaskModel newTask}){
-    taskList[index] = newTask;
-    notifyListeners(); //<- 나중에 필요 없을시 제거
-  }
 
   void changeCheckState({required int index}){
     taskList.elementAt(index).isChecked
@@ -36,5 +32,19 @@ class TaskData extends ChangeNotifier {
   void changeIsStrikeThrough({required int index}){
     taskList[index].title.isStrikethrough = !taskList[index].title.isStrikethrough;
     notifyListeners(); //<- 나중에 필요 없을시 제거
+  }
+
+  void changeIsChangeColor({required int index}){
+    taskList[index].title.isChangeColor = !taskList[index].title.isChangeColor;
+    notifyListeners(); //<- 나중에 필요 없을시 제거
+  }
+
+  void changeTitle({required int index, required String newTitle}){
+    taskList[index].title.content = newTitle;
+    notifyListeners();
+  }
+  void changeDetail({required int index, required String newDetail}){
+    taskList[index].detail = newDetail;
+    notifyListeners();
   }
 }

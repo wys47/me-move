@@ -73,10 +73,10 @@ class HomePageState extends State<HomePage> {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                taskData.getTask(index: index).title.content,
+                                taskData.taskList[index].title.content,
                                 style: TextStyle(
                                   fontSize: taskData.taskList[index].title.size,
-                                  decoration: taskData.taskList[index].title.isStrikethrough ? TextDecoration.lineThrough : null,
+                                  decoration: taskData.taskList[index].isChecked ? TextDecoration.lineThrough : null,
                                 ),
                               ),
                             ),
@@ -112,9 +112,7 @@ class HomePageState extends State<HomePage> {
                     builder: (BuildContext context) {
                       return AddTaskDialog();
                     },
-                  ).then((value) {
-                    setState(() {});
-                  });
+                  );
                 },
                 child: Icon(Icons.add),
               ),
