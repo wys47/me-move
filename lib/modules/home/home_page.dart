@@ -13,6 +13,29 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  // 색상 리스트 정의
+  final List<Color> _textColors = [
+    Colors.red,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+    Colors.orange,
+    Colors.purple,
+    Colors.indigo,
+  ];
+
+  // 현재 색상 인덱스를 추적하는 변수
+  int _currentColorIndex = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 홈 화면에 진입할 때마다 색상 변경
+    setState(() {
+      _currentColorIndex = (_currentColorIndex + 1) % _textColors.length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final taskData = Provider.of<TaskData>(context);
@@ -20,8 +43,7 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-          },
+          onPressed: () {},
           icon: Icon(Icons.dehaze),
         ),
         actions: [
@@ -43,25 +65,25 @@ class HomePageState extends State<HomePage> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount:taskData.taskCount,
+                    itemCount: taskData.taskCount,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
                           Navigator.push(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => TaskEditPage(taskIndex: index),
+                              pageBuilder: (context, animation, secondaryAnimation) =>
+                                  TaskEditPage(taskIndex: index),
                               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                 return FadeTransition(
                                   opacity: animation,
                                   child: child,
                                 );
                               },
-                              transitionDuration: Duration(milliseconds: 150),  // 전환 지속 시간 설정
+                              transitionDuration: Duration(milliseconds: 150), // 전환 지속 시간 설정
                             ),
                           );
                         },
-
                         child: Stack(
                           children: [
                             Container(
@@ -76,24 +98,27 @@ class HomePageState extends State<HomePage> {
                                 taskData.taskList[index].title.content,
                                 style: TextStyle(
                                   fontSize: taskData.taskList[index].title.size,
-                                  decoration: taskData.taskList[index].isChecked ? TextDecoration.lineThrough : null,
+                                  color:  taskData.taskList[index].title.isChangeColor ? _textColors[_currentColorIndex] : Colors.black, // 텍스트 색상 설정
+                                  decoration: taskData.taskList[index].isChecked
+                                      ? TextDecoration.lineThrough
+                                      : null,
                                 ),
                               ),
                             ),
                             Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                height: 80,
-                                width: 80,
-                                child: IconButton(
-                                  onPressed: () {
-                                    taskData.changeCheckState(index: index);
-                                    taskData.changeIsStrikeThrough(index: index);
-                                  },
-                                  icon: Icon(taskData.taskList[index].isChecked ? Icons.check : Icons.square_outlined)
-                                ),
-                              )
-                            )
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  height: 80,
+                                  width: 80,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        taskData.changeCheckState(index: index);
+                                        taskData.changeIsStrikeThrough(index: index);
+                                      },
+                                      icon: Icon(taskData.taskList[index].isChecked
+                                          ? Icons.check
+                                          : Icons.square_outlined)),
+                                ))
                           ],
                         ),
                       );
