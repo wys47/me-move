@@ -13,6 +13,13 @@ class TaskData extends ChangeNotifier {
     return taskList[index];
   }
 
+  bool checkedTaskOpen = false;
+  void changedTaskOpen()
+  {
+    checkedTaskOpen = !checkedTaskOpen;
+    notifyListeners();
+  }
+
   void addTask({required TaskModel task}) {
     taskList.add(task);
     notifyListeners(); //<- 나중에 필요 없을시 제거
