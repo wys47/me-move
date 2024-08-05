@@ -67,63 +67,172 @@ class HomePageState extends State<HomePage> {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: taskData.taskCount,
                     itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) =>
-                                  TaskEditPage(taskIndex: index),
-                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                return FadeTransition(
-                                  opacity: animation,
-                                  child: child,
-                                );
-                              },
-                              transitionDuration: Duration(milliseconds: 150), // 전환 지속 시간 설정
-                            ),
-                          );
-                        },
-                        child: Stack(
-                          children: [
-                            Container(
-                              height: 80,
-                              margin: EdgeInsets.only(bottom: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: getLighterColor(mainColor, 0.85),
+                      if (!taskData.taskList[index].isChecked) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) =>
+                                    TaskEditPage(taskIndex: index),
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                                transitionDuration: Duration(milliseconds: 150), // 전환 지속 시간 설정
                               ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                taskData.taskList[index].title.content,
-                                style: TextStyle(
-                                  fontSize: taskData.taskList[index].title.size,
-                                  color:  taskData.taskList[index].title.isChangeColor ? _textColors[_currentColorIndex] : Colors.black, // 텍스트 색상 설정
-                                  decoration: taskData.taskList[index].isChecked
-                                      ? TextDecoration.lineThrough
-                                      : null,
+                            );
+                          },
+                          child: Stack(
+                            children: [
+                              Container(
+                                height: 80,
+                                margin: EdgeInsets.only(bottom: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: getLighterColor(mainColor, 0.85),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  taskData.taskList[index].title.content,
+                                  style: TextStyle(
+                                    fontSize: taskData.taskList[index].title.size,
+                                    color:  taskData.taskList[index].title.isChangeColor ? _textColors[_currentColorIndex] : Colors.black, // 텍스트 색상 설정
+                                    decoration: taskData.taskList[index].isChecked
+                                        ? TextDecoration.lineThrough
+                                        : null,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Align(
-                                alignment: Alignment.centerLeft,
-                                child: Container(
-                                  height: 80,
-                                  width: 80,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        taskData.changeCheckState(index: index);
-                                        taskData.changeIsStrikeThrough(index: index);
-                                      },
-                                      icon: Icon(taskData.taskList[index].isChecked
-                                          ? Icons.check
-                                          : Icons.square_outlined)),
-                                ))
-                          ],
-                        ),
-                      );
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    height: 80,
+                                    width: 80,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          taskData.changeCheckState(index: index);
+                                          taskData.changeIsStrikeThrough(index: index);
+                                        },
+                                        icon: Icon(taskData.taskList[index].isChecked
+                                            ? Icons.check
+                                            : Icons.square_outlined)),
+                                  ))
+                            ],
+                          ),
+                        );
+                      }
                     },
                   ),
+                  Container(
+                      height: 60,
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: getLighterColor(mainColor, 0.85),
+                      ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                              width: 70,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '완료',
+                                  style: TextStyle(
+                                      fontSize: 20
+                                  ),
+                                ),
+                              )
+                          ),
+                          Container(
+                            width: 70,
+                            child: Row(
+                              children: [
+                                Text(
+                                  taskData.cntCheckedTask().toString(),
+                                  style: TextStyle(
+                                      fontSize: 20
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    taskData.changedTaskOpen();
+                                  },
+                                  icon: Icon(taskData.checkedTaskOpen ? Icons.arrow_drop_down : Icons.arrow_left),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                  ),
+                  taskData.checkedTaskOpen ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount:taskData.taskCount,
+                    itemBuilder: (context, index) {
+                      if (taskData.taskList[index].isChecked) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) => TaskEditPage(taskIndex: index),
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  );
+                                },
+                                transitionDuration: Duration(milliseconds: 150),  // 전환 지속 시간 설정
+                              ),
+                            );
+                          },
+
+                          child: Stack(
+                            children: [
+                              Container(
+                                height: 80,
+                                margin: EdgeInsets.only(bottom: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: getLighterColor(mainColor, 0.85),
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  taskData.taskList[index].title.content,
+                                  style: TextStyle(
+                                    fontSize: taskData.taskList[index].title.size,
+                                    decoration: taskData.taskList[index].isChecked ? TextDecoration.lineThrough : null,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    height: 80,
+                                    width: 80,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          taskData.changeCheckState(index: index);
+                                          taskData.changeIsStrikeThrough(index: index);
+                                        },
+                                        icon: Icon(taskData.taskList[index].isChecked ? Icons.check : Icons.square_outlined)
+                                    ),
+                                  )
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                      return null;
+                    },
+                  ) : Container()
                 ],
               ),
             ),
