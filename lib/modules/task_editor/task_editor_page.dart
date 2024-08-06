@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/models/task_model.dart';
-import 'package:memove_practice/data/models/text_model.dart';
 import 'package:memove_practice/modules/highlight_settings/highlight_settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:memove_practice/data/task_data.dart';

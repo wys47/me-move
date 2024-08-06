@@ -106,24 +106,29 @@ class HomePageState extends State<HomePage> {
                                 ),
                               ),
                               Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Container(
-                                    height: 80,
-                                    width: 80,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          taskData.changeCheckState(index: index);
-                                          taskData.changeIsStrikeThrough(index: index);
-                                        },
-                                        icon: Icon(taskData.taskList[index].isChecked
-                                            ? Icons.check
-                                            : Icons.square_outlined)),
-                                  ))
+                                alignment: Alignment.centerLeft,
+                                child: SizedBox(
+                                  height: 80,
+                                  width: 80,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      taskData.changeCheckState(index: index);
+                                      taskData.changeIsStrikeThrough(index: index);
+                                    },
+                                    icon: Icon(taskData.taskList[index].isChecked
+                                      ? Icons.check
+                                      : Icons.square_outlined
+                                    )
+                                  ),
+                                )
+                              )
                             ],
                           ),
                         );
                       }
-                      return null;
+                      else {
+                        return Container();
+                      }
                     },
                   ),
                   Container(
@@ -137,7 +142,7 @@ class HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 70,
                           child: Align(
                             alignment: Alignment.center,
@@ -149,7 +154,7 @@ class HomePageState extends State<HomePage> {
                             ),
                           )
                         ),
-                        Container(
+                        SizedBox(
                           width: 70,
                           child: Row(
                             children: [
@@ -214,7 +219,7 @@ class HomePageState extends State<HomePage> {
                               ),
                               Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Container(
+                                  child: SizedBox(
                                     height: 80,
                                     width: 80,
                                     child: IconButton(
@@ -230,7 +235,9 @@ class HomePageState extends State<HomePage> {
                           ),
                         );
                       }
-                      return null;
+                      else {
+                        return Container();
+                      }
                     },
                   ) : Container()
                 ],
