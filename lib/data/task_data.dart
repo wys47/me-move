@@ -14,16 +14,14 @@ class TaskData extends ChangeNotifier {
   }
 
   bool checkedTaskOpen = false;
-  void changedTaskOpen()
-  {
+  void changedTaskOpen() {
     checkedTaskOpen = !checkedTaskOpen;
     notifyListeners();
   }
 
   int cntCheckedTask() {
     int cnt = 0;
-    for (int i = 0; i < taskList.length; ++i)
-    {
+    for (int i = 0; i < taskList.length; ++i) {
       if (taskList[i].isChecked) ++cnt;
     }
     return cnt;

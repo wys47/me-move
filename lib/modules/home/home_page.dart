@@ -23,7 +23,6 @@ class HomePageState extends State<HomePage> {
     Colors.purple,
     Colors.indigo,
   ];
-
   // 현재 색상 인덱스를 추적하는 변수
   int _currentColorIndex = 0;
 
@@ -73,18 +72,18 @@ class HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               PageRouteBuilder(
-                                pageBuilder: (context, animation, secondaryAnimation) =>
-                                    TaskEditPage(taskIndex: index),
+                                pageBuilder: (context, animation, secondaryAnimation) => TaskEditPage(taskIndex: index),
                                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                   return FadeTransition(
                                     opacity: animation,
                                     child: child,
                                   );
                                 },
-                                transitionDuration: Duration(milliseconds: 150), // 전환 지속 시간 설정
+                                transitionDuration: Duration(milliseconds: 150),  // 전환 지속 시간 설정
                               ),
                             );
                           },
+
                           child: Stack(
                             children: [
                               Container(
@@ -124,52 +123,53 @@ class HomePageState extends State<HomePage> {
                           ),
                         );
                       }
+                      return null;
                     },
                   ),
                   Container(
-                      height: 60,
-                      margin: EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: getLighterColor(mainColor, 0.85),
-                      ),
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              width: 70,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  '완료',
-                                  style: TextStyle(
-                                      fontSize: 20
-                                  ),
-                                ),
-                              )
-                          ),
-                          Container(
-                            width: 70,
-                            child: Row(
-                              children: [
-                                Text(
-                                  taskData.cntCheckedTask().toString(),
-                                  style: TextStyle(
-                                      fontSize: 20
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    taskData.changedTaskOpen();
-                                  },
-                                  icon: Icon(taskData.checkedTaskOpen ? Icons.arrow_drop_down : Icons.arrow_left),
-                                )
-                              ],
+                    height: 60,
+                    margin: EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: getLighterColor(mainColor, 0.85),
+                    ),
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 70,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '완료',
+                              style: TextStyle(
+                                fontSize: 20
+                              ),
                             ),
+                          )
+                        ),
+                        Container(
+                          width: 70,
+                          child: Row(
+                            children: [
+                              Text(
+                                taskData.cntCheckedTask().toString(),
+                                style: TextStyle(
+                                fontSize: 20
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  taskData.changedTaskOpen();
+                                },
+                                icon: Icon(taskData.checkedTaskOpen ? Icons.arrow_drop_down : Icons.arrow_left),
+                              )
+                            ],
                           ),
-                        ],
-                      )
+                        ),
+                      ],
+                    )
                   ),
                   taskData.checkedTaskOpen ? ListView.builder(
                     shrinkWrap: true,
