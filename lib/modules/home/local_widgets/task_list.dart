@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:memove_practice/data/UISetting_data.dart';
 import 'package:memove_practice/data/task_data.dart';
 import 'package:memove_practice/modules/task_editor/task_editor_page.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +39,7 @@ class TaskListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskData = Provider.of<TaskData>(context);
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     if (!taskData.taskList[index].isChecked) {
       return InkWell(
@@ -58,27 +61,36 @@ class TaskListItem extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 80,
+              height: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
               margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: getLighterColor(mainColor, 0.85),
               ),
               alignment: Alignment.center,
-              child: Text(
-                taskData.taskList[index].title.content,
-                style: TextStyle(
-                  fontSize: taskData.taskList[index].title.size,
-                  color: taskData.taskList[index].title.isChangeColor ? textColor : Colors.black,
-                  decoration: taskData.taskList[index].isChecked ? TextDecoration.lineThrough : null,
+              child: Container(
+                width: mediaQueryData.size.width - 2 * mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  taskData.taskList[index].title.content,
+                  style: TextStyle(
+                    fontSize: UiSettingData.fontSizeByScreenSize(
+                        taskData.taskList[index].title.size, mediaQueryData.size.width
+                    ),
+                    color: taskData.taskList[index].title.isChangeColor ? textColor : Colors.black,
+                    decoration: taskData.taskList[index].isChecked ? TextDecoration.lineThrough : null,
+                  ),
+                  maxLines: 1,
+                  minFontSize: UiSettingData.fontSizeMin,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
             Align(
               alignment: Alignment.centerLeft,
               child: SizedBox(
-                height: 80,
-                width: 80,
+                height: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
+                width: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
                 child: IconButton(
                   onPressed: () {
                     taskData.changeCheckState(index: index);

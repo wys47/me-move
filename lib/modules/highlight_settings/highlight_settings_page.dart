@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/task_data.dart';
+import 'package:memove_practice/data/UISetting_data.dart';
 import 'package:provider/provider.dart';
 
 class HighlightSettingsPage extends StatefulWidget {
@@ -14,10 +15,16 @@ class _HighlightSettingsPageState extends State<HighlightSettingsPage> {
   @override
   Widget build(BuildContext context) {
     final taskData = Provider.of<TaskData>(context);
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Highlight Settings'),
+        title: Text(
+          'Highlight Settings',
+          style: TextStyle(
+            fontSize: UiSettingData.fontSizeByScreenSize(UiSettingData.fontSizeDefault, mediaQueryData.size.width)
+          ),
+        ),
       ),
       body: Row(
         children: [
@@ -31,7 +38,9 @@ class _HighlightSettingsPageState extends State<HighlightSettingsPage> {
           ),
           Text(
             'Emphasize Title',
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(
+              fontSize: UiSettingData.fontSizeByScreenSize(UiSettingData.fontSizeDefault, mediaQueryData.size.width)
+            ),
           ),
         ]
       )
