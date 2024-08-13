@@ -1,13 +1,25 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
+part 'text_model.g.dart'; // 이 파일은 코드 생성에 의해 생성됩니다.
+
+@HiveType(typeId: 1)
 class TextModel extends ChangeNotifier {
-  String content;   // 텍스트 내용
-  double size;      // 텍스트의 크기
-  bool isChangeColor;  // 색상 변경 기능 적용 여부
-  bool isStrikethrough;  // 취소선 적용 여부
+  @HiveField(0)
+  String content;
+
+  @HiveField(1)
+  double size;
+
+  @HiveField(2)
+  bool isChangeColor;
+
+  @HiveField(3)
+  bool isStrikethrough;
+
+  @HiveField(4)
   bool isBold;
 
-  // 7.26 한결 - 빈 모델 쓸 수도 있을 것 같아서 일단 임시로 초기값 다 넣어둠
   TextModel({
     this.content = '\'content\' does not exist in TextModel',
     this.size = 20.0,
