@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/task_data.dart';
 import 'package:memove_practice/modules/task_editor/task_editor_page.dart';
+import 'package:memove_practice/data/UISetting_data.dart';
 import 'package:memove_practice/theme/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -8,11 +9,12 @@ class CompletedTaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskData = Provider.of<TaskData>(context);
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     return Column(
       children: [
         Container(
-          height: 60,
+          height: mediaQueryData.size.height * UiSettingData.completedTaskBarCoefficient,
           margin: EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -23,22 +25,30 @@ class CompletedTaskList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 70,
+                width: mediaQueryData.size.width * UiSettingData.completedTaskBoxCoefficient,
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
                     '완료',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(
+                        fontSize: UiSettingData.fontSizeByScreenSize(
+                            UiSettingData.fontSizeSmall, mediaQueryData.size.width
+                        )
+                    ),
                   ),
                 ),
               ),
               SizedBox(
-                width: 70,
+                width: mediaQueryData.size.width * UiSettingData.completedTaskBoxCoefficient,
                 child: Row(
                   children: [
                     Text(
                       taskData.cntCheckedTask().toString(),
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                          fontSize: UiSettingData.fontSizeByScreenSize(
+                              UiSettingData.fontSizeSmall, mediaQueryData.size.width
+                          )
+                      ),
                     ),
                     IconButton(
                       onPressed: () {
@@ -78,7 +88,7 @@ class CompletedTaskList extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(
-                      height: 80,
+                      height: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
                       margin: EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -88,7 +98,9 @@ class CompletedTaskList extends StatelessWidget {
                       child: Text(
                         taskData.taskList[index].title.content,
                         style: TextStyle(
-                          fontSize: taskData.taskList[index].title.size,
+                          fontSize: UiSettingData.fontSizeByScreenSize(
+                              taskData.taskList[index].title.size, mediaQueryData.size.width
+                          ),
                           decoration: taskData.taskList[index].isChecked ? TextDecoration.lineThrough : null,
                         ),
                       ),
@@ -96,8 +108,8 @@ class CompletedTaskList extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        height: 80,
-                        width: 80,
+                        height: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
+                        width: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
                         child: IconButton(
                           onPressed: () {
                             taskData.changeCheckState(index: index);
