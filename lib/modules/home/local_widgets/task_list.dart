@@ -45,9 +45,7 @@ class TaskListItem extends StatefulWidget {
 }
 
 class _TaskListItemState extends State<TaskListItem> {
-  //애니메이션 관련 변수
   bool _isChecked = false;
-  double _opacity = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +58,8 @@ class _TaskListItemState extends State<TaskListItem> {
         if (_isChecked) {
           // 애니메이션이 끝나면 상태를 변경
           taskData.changeCheckState(index: widget.index);
-          taskData.changeIsStrikeThrough(index: widget.index);
+        } else{
+          print('TaskListItem AnimatedOpacity에서 예상 못한 오류 발생');
         }
       },
       child: InkWell(
@@ -96,16 +95,6 @@ class _TaskListItemState extends State<TaskListItem> {
                   onPressed: () {
                     setState(() {
                       _isChecked = !_isChecked;
-                      _opacity = _isChecked ? 0.0 : 1.0;
-
-                      // 애니메이션 후 상태 변경
-                      if (_isChecked) {
-                        Future.delayed(Duration(milliseconds: 300), () {
-                          setState(() {
-                            _opacity = 0.0;
-                          });
-                        });
-                      }
                     });
                   },
                   icon: Icon(
@@ -116,7 +105,6 @@ class _TaskListItemState extends State<TaskListItem> {
               ),
 
               SizedBox(width: 10.0), // 체크박스와 텍스트 사이 거리
-
               Text(
                 taskData.taskList[widget.index].title.content,
                 style: TextStyle(
