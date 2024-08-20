@@ -55,7 +55,7 @@ class HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 TaskList(textColors: _textColors, currentColorIndex: _currentColorIndex),
-                CompletedTaskList(),
+                CompletedTaskList(textColors: _textColors, currentColorIndex: _currentColorIndex),
               ],
             ),
           ),
