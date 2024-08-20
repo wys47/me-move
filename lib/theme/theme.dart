@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const mainColor = Colors.blueGrey;
+const mainColor = Colors.black87;
 
 Color getLighterColor(Color color, double lightness) {
   final lighterHslColor = HSLColor.fromColor(color).withLightness(lightness);
@@ -11,6 +11,7 @@ Color getLighterColor(Color color, double lightness) {
 class AppTheme {
   static ThemeData getTheme() {
     return ThemeData(
+      primaryColor: mainColor,
       colorScheme: ColorScheme.fromSwatch().copyWith(
         secondary: Colors.blueAccent, // formerly known as accentColor
       ),

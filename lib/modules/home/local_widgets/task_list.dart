@@ -19,32 +19,56 @@ class TaskList extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       itemCount: taskData.taskCount,
       itemBuilder: (context, index) {
-        return TaskListItem(
-          index: index,
-          textColor: textColors[currentColorIndex],
-        );
+        if (!taskData.taskList[index].isChecked) {
+          return TaskListItem(
+            index: index,
+            textColor: textColors[currentColorIndex],
+          );
+        }
+        else{
+          return
+            Container();
+        }
       },
     );
   }
 }
 
-class TaskListItem extends StatelessWidget {
+class TaskListItem extends StatefulWidget {
   final int index;
   final Color textColor;
 
   TaskListItem({required this.index, required this.textColor});
 
   @override
+  _TaskListItemState createState() => _TaskListItemState();
+}
+
+class _TaskListItemState extends State<TaskListItem> {
+  //애니메이션 관련 변수
+  bool _isChecked = false;
+  double _opacity = 1.0;
+
+  @override
   Widget build(BuildContext context) {
     final taskData = Provider.of<TaskData>(context);
 
-    if (!taskData.taskList[index].isChecked) {
-      return InkWell(
+    return AnimatedOpacity(
+      opacity: _isChecked ? 0.0 : 1.0,
+      duration: Duration(milliseconds: 500),
+      onEnd: () {
+        if (_isChecked) {
+          // 애니메이션이 끝나면 상태를 변경
+          taskData.changeCheckState(index: widget.index);
+          taskData.changeIsStrikeThrough(index: widget.index);
+        }
+      },
+      child: InkWell(
         onTap: () {
           Navigator.push(
             context,
             PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => TaskEditPage(taskIndex: index),
+              pageBuilder: (context, animation, secondaryAnimation) => TaskEditPage(taskIndex: widget.index),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 return FadeTransition(
                   opacity: animation,
@@ -55,44 +79,56 @@ class TaskListItem extends StatelessWidget {
             ),
           );
         },
-        child: Stack(
-          children: [
-            Container(
-              height: 80,
-              margin: EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: getLighterColor(mainColor, 0.85),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                taskData.taskList[index].title.content,
-                style: TextStyle(
-                  fontSize: taskData.taskList[index].title.size,
-                  color: taskData.taskList[index].title.isChangeColor ? textColor : Colors.black,
-                  decoration: taskData.taskList[index].isChecked ? TextDecoration.lineThrough : null,
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: SizedBox(
-                height: 80,
-                width: 80,
+        child: Ink(
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+          decoration: BoxDecoration(
+            color: getLighterColor(mainColor, 0.999),
+          ),
+          child: Row(
+            children: [
+              AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+                transitionBuilder: (child, animation) {
+                  return ScaleTransition(scale: animation, child: child);
+                },
                 child: IconButton(
+                  key: ValueKey<bool>(_isChecked),
                   onPressed: () {
-                    taskData.changeCheckState(index: index);
-                    taskData.changeIsStrikeThrough(index: index);
+                    setState(() {
+                      _isChecked = !_isChecked;
+                      _opacity = _isChecked ? 0.0 : 1.0;
+
+                      // 애니메이션 후 상태 변경
+                      if (_isChecked) {
+                        Future.delayed(Duration(milliseconds: 300), () {
+                          setState(() {
+                            _opacity = 0.0;
+                          });
+                        });
+                      }
+                    });
                   },
-                  icon: Icon(taskData.taskList[index].isChecked ? Icons.check : Icons.square_outlined),
+                  icon: Icon(
+                    _isChecked ? Icons.check : Icons.circle_outlined,
+                    key: ValueKey<bool>(_isChecked),
+                  ),
                 ),
               ),
-            ),
-          ],
+
+              SizedBox(width: 10.0), // 체크박스와 텍스트 사이 거리
+
+              Text(
+                taskData.taskList[widget.index].title.content,
+                style: TextStyle(
+                  fontSize: taskData.taskList[widget.index].title.size,
+                  color: taskData.taskList[widget.index].title.isChangeColor ? widget.textColor : Colors.black,
+                  decoration: taskData.taskList[widget.index].isChecked ? TextDecoration.lineThrough : null,
+                ),
+              ),
+            ],
+          ),
         ),
-      );
-    } else {
-      return Container();
-    }
+      ),
+    );
   }
 }
