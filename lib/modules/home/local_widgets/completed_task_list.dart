@@ -53,7 +53,34 @@ class CompletedTaskList extends StatelessWidget {
             itemCount: taskData.taskCount,
             itemBuilder: (context, index) {
               if (taskData.taskList[index].isChecked) {
-                return TaskListItem(index: index, textColor: textColors[currentColorIndex]);
+                return Dismissible(
+                  key: ValueKey(taskData.taskList[index].hashCode), // 객체의 해시코드를 Key로 사용
+                  direction: DismissDirection.endToStart, // 오른쪽에서 왼쪽으로 스와이프
+                  background: Container(
+                    color: Colors.red, // 스와이프 시 나타나는 배경 색상
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onDismissed: (direction) {
+                    // 스와이프 후 해당 항목을 삭제
+                    taskData.removeTask(index:index);
+
+                    // 삭제 후 스낵바를 통해 알림 표시
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Task deleted'),
+                      ),
+                    );
+                  },
+                  child: TaskListItem(
+                    index: index,
+                    textColor: textColors[currentColorIndex],
+                  ),
+                );
               } else {
                 return SizedBox.shrink(); // 빈 공간을 줄 때 Container 대신 SizedBox.shrink() 사용
               }
