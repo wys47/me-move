@@ -46,11 +46,12 @@ class AppTheme {
         backgroundColor: mainColor, // FloatingActionButton 색상 설정
       ),
       textTheme: TextTheme(
-        headlineLarge: GoogleFonts.lato(
-            fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.blue),
-        headlineSmall: GoogleFonts.openSans(
-            fontSize: 14.0, fontWeight: FontWeight.normal, color: Colors.yellow),
+        headlineLarge: GoogleFonts.notoSans(
+            fontSize: 26.0, fontWeight: FontWeight.w300, color: Colors.blue),
+        headlineMedium: GoogleFonts.notoSans(
+            fontSize: 20.0, fontWeight: FontWeight.normal, color: Colors.black),
       ),
+
 
     );
   }

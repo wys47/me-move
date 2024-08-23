@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:memove_practice/data/task_data.dart';
 import 'package:memove_practice/modules/task_editor/task_editor_page.dart';
 import 'package:memove_practice/theme/theme.dart';
@@ -80,12 +81,15 @@ class _TaskListItemState extends State<TaskListItem> {
               SizedBox(width: 10.0), // 체크박스와 텍스트 사이 거리
               Text(
                 taskData.taskList[widget.index].title.content,
-                style: TextStyle(
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   fontSize: taskData.taskList[widget.index].title.size,
-                  color: taskData.taskList[widget.index].title.isChangeColor ? widget.textColor : Colors.black,
+                  color: taskData.taskList[widget.index].title.isChangeColor
+                      ? widget.textColor
+                      : Theme.of(context).textTheme.headlineLarge?.color ?? Colors.black,
                   decoration: taskData.taskList[widget.index].isChecked ? TextDecoration.lineThrough : null,
                 ),
               ),
+
             ],
           ),
         ),

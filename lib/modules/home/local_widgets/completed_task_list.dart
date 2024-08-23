@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/task_data.dart';
 import 'package:memove_practice/modules/home/local_widgets/task_list_item.dart';
-import 'package:memove_practice/modules/task_editor/task_editor_page.dart';
 import 'package:memove_practice/theme/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -17,58 +16,49 @@ class CompletedTaskList extends StatelessWidget {
 
     return Column(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: getLighterColor(mainColor, 0.95),
-          ),
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 70,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    '완료',
-                    style: TextStyle(fontSize: 20),
-                  ),
+        InkWell(
+          onTap: () {
+            taskData.changedTaskOpen();
+          },
+          splashColor: Colors.grey.withOpacity(0.2),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: getLighterColor(mainColor, 0.95),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '완료',
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
-              ),
-              SizedBox(
-                width: 70,
-                child: Row(
+                Row(
                   children: [
                     Text(
                       taskData.cntCheckedTask().toString(),
-                      style: TextStyle(fontSize: 20),
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    IconButton(
-                      onPressed: () {
-                        taskData.changedTaskOpen();
-                      },
-                      icon: Icon(taskData.checkedTaskOpen ? Icons.arrow_drop_down : Icons.arrow_left),
-                    ),
+                    Icon(taskData.checkedTaskOpen ? Icons.arrow_drop_down : Icons.arrow_left),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        taskData.checkedTaskOpen
-            ? ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: taskData.taskCount,
-          itemBuilder: (context, index) {
-            if (taskData.taskList[index].isChecked) {
-              return TaskListItem(index: index, textColor: textColors[currentColorIndex]);
-            } else {
-              return Container();
-            }
-          },
-        )
-            : Container(),
+        if (taskData.checkedTaskOpen)
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: taskData.taskCount,
+            itemBuilder: (context, index) {
+              if (taskData.taskList[index].isChecked) {
+                return TaskListItem(index: index, textColor: textColors[currentColorIndex]);
+              } else {
+                return SizedBox.shrink(); // 빈 공간을 줄 때 Container 대신 SizedBox.shrink() 사용
+              }
+            },
+          ),
       ],
     );
   }
