@@ -38,11 +38,16 @@ class _TaskEditPageState extends State<TaskEditPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            TitleField(titleController: _controller.titleController),
-            SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: TitleField(titleController: _controller.titleController),
+                ),
+                SizedBox(width: 8), // TitleField와 IconButton 간의 간격
+                ChangeEffectButton(taskIndex: widget.taskIndex),
+              ],
+            ),
             DetailField(detailController: _controller.detailController),
-            SizedBox(height: 20),
-            ChangeEffectButton(taskIndex: widget.taskIndex),
           ],
         ),
       ),

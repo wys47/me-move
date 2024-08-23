@@ -10,8 +10,8 @@ class DetailField extends StatelessWidget {
     return TextField(
       controller: detailController,
       decoration: InputDecoration(
-        labelText: 'Details',
-        border: OutlineInputBorder(),
+        hintText: '메모 추가',
+        border: InputBorder.none,
       ),
       maxLines: null,
       keyboardType: TextInputType.multiline,

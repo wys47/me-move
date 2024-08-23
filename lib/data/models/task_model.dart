@@ -16,7 +16,7 @@ class TaskModel extends HiveObject {
 
   TaskModel({
     required this.title,
-    this.detail = 'No detail in TaskModel.dart',
+    this.detail = '',
     this.isChecked = false,
   });
 }
