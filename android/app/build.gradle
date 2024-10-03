@@ -51,6 +51,14 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+
+    buildFeatures {
+        compose true
+    }
+}
+
+dependencies {
+    implementation 'androidx.glance:glance-appwidget:1.1.0'
 }
 
 flutter {
