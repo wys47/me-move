@@ -49,21 +49,18 @@ class HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  TaskList(textColors: _textColors, currentColorIndex: _currentColorIndex),
-                  CompletedTaskList(),
-                ],
-              ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                TaskList(textColors: _textColors, currentColorIndex: _currentColorIndex),
+                CompletedTaskList(textColors: _textColors, currentColorIndex: _currentColorIndex),
+              ],
             ),
-            AddTaskButton(),
-          ],
-        ),
+          ),
+          AddTaskButton(),
+        ],
       ),
     );
   }

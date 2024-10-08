@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:memove_practice/data/task_data.dart';
-import 'package:memove_practice/modules/task_editor/task_editor_page.dart';
-import 'package:memove_practice/data/UISetting_data.dart';
+import 'package:memove_practice/modules/home/local_widgets/task_list_item.dart';
 import 'package:memove_practice/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class CompletedTaskList extends StatelessWidget {
+  final List<Color> textColors;
+  final int currentColorIndex;
+
+  CompletedTaskList({required this.textColors, required this.currentColorIndex});
+
   @override
   Widget build(BuildContext context) {
     final taskData = Provider.of<TaskData>(context);
@@ -13,121 +17,76 @@ class CompletedTaskList extends StatelessWidget {
 
     return Column(
       children: [
-        Container(
-          height: mediaQueryData.size.height * UiSettingData.completedTaskBarCoefficient,
-          margin: EdgeInsets.only(bottom: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: getLighterColor(mainColor, 0.85),
-          ),
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: mediaQueryData.size.width * UiSettingData.completedTaskBoxCoefficient,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    '완료',
-                    style: TextStyle(
-                        fontSize: UiSettingData.fontSizeByScreenSize(
-                            UiSettingData.fontSizeSmall, mediaQueryData.size.width
-                        )
-                    ),
-                  ),
+        InkWell(
+          onTap: () {
+            taskData.changedTaskOpen();
+          },
+          splashColor: Colors.grey.withOpacity(0.2),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: getLighterColor(mainColor, 0.95),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '완료',
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
-              ),
-              SizedBox(
-                width: mediaQueryData.size.width * UiSettingData.completedTaskBoxCoefficient,
-                child: Row(
+                Row(
                   children: [
                     Text(
                       taskData.cntCheckedTask().toString(),
-                      style: TextStyle(
-                          fontSize: UiSettingData.fontSizeByScreenSize(
-                              UiSettingData.fontSizeSmall, mediaQueryData.size.width
-                          )
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                    IconButton(
-                      onPressed: () {
-                        taskData.changedTaskOpen();
-                      },
-                      icon: Icon(taskData.checkedTaskOpen ? Icons.arrow_drop_down : Icons.arrow_left),
-                    ),
+                    Icon(taskData.checkedTaskOpen ? Icons.arrow_drop_down : Icons.arrow_left),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        taskData.checkedTaskOpen
-            ? ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: taskData.taskCount,
-          itemBuilder: (context, index) {
-            if (taskData.taskList[index].isChecked) {
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => TaskEditPage(taskIndex: index),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
-                      transitionDuration: Duration(milliseconds: 150),
+        if (taskData.checkedTaskOpen)
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: taskData.taskCount,
+            itemBuilder: (context, index) {
+              if (taskData.taskList[index].isChecked) {
+                return Dismissible(
+                  key: ValueKey(taskData.taskList[index].hashCode), // 객체의 해시코드를 Key로 사용
+                  direction: DismissDirection.endToStart, // 오른쪽에서 왼쪽으로 스와이프
+                  background: Container(
+                    color: Colors.red, // 스와이프 시 나타나는 배경 색상
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
                     ),
-                  );
-                },
-                child: Stack(
-                  children: [
-                    Container(
-                      height: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
-                      margin: EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: getLighterColor(mainColor, 0.85),
+                  ),
+                  onDismissed: (direction) {
+                    // 스와이프 후 해당 항목을 삭제
+                    taskData.removeTask(index:index);
+
+                    // 삭제 후 스낵바를 통해 알림 표시
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Task deleted'),
                       ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        taskData.taskList[index].title.content,
-                        style: TextStyle(
-                          fontSize: UiSettingData.fontSizeByScreenSize(
-                              taskData.taskList[index].title.size, mediaQueryData.size.width
-                          ),
-                          decoration: taskData.taskList[index].isChecked ? TextDecoration.lineThrough : null,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: SizedBox(
-                        height: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
-                        width: mediaQueryData.size.height * UiSettingData.taskBoxHeightCoefficient,
-                        child: IconButton(
-                          onPressed: () {
-                            taskData.changeCheckState(index: index);
-                            taskData.changeIsStrikeThrough(index: index);
-                          },
-                          icon: Icon(taskData.taskList[index].isChecked ? Icons.check : Icons.square_outlined),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              return Container();
-            }
-          },
-        )
-            : Container(),
+                    );
+                  },
+                  child: TaskListItem(
+                    index: index,
+                    textColor: textColors[currentColorIndex],
+                  ),
+                );
+              } else {
+                return SizedBox.shrink(); // 빈 공간을 줄 때 Container 대신 SizedBox.shrink() 사용
+              }
+            },
+          ),
       ],
     );
   }

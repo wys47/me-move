@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:memove_practice/modules/home/local_widgets/add_task_dialog.dart';
+import 'package:memove_practice/modules/home/local_widgets/add_task.dart';
 
 class AddTaskButton extends StatelessWidget {
   @override
@@ -9,10 +9,18 @@ class AddTaskButton extends StatelessWidget {
       child: FloatingActionButton(
         shape: CircleBorder(),
         onPressed: () {
-          showDialog(
+          showModalBottomSheet(
             context: context,
-            builder: (BuildContext context) {
-              return AddTaskDialog();
+            isScrollControlled: true,
+            builder: (context) {
+              return Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: SizedBox(
+                  height: 80,
+                  child: AddTask(
+                  ),
+                ),
+              );
             },
           );
         },
