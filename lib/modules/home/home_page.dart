@@ -3,6 +3,7 @@ import 'package:memove_practice/data/task_data.dart';
 import 'package:memove_practice/modules/home/local_widgets/AddTaskButton.dart';
 import 'package:memove_practice/modules/home/local_widgets/completed_task_list.dart';
 import 'package:memove_practice/modules/home/local_widgets/task_list.dart';
+import 'package:memove_practice/modules/home/local_widgets/sidebar.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,6 +50,7 @@ class HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      drawer: Sidebar(),
       body: Stack(
         children: [
           SingleChildScrollView(
